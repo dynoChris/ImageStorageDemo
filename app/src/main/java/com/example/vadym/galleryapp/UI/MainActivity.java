@@ -1,5 +1,6 @@
 package com.example.vadym.galleryapp.UI;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -80,9 +82,32 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     @Override
     public void onLongClickRecyclerItem(int position) {
-        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
-        onRemoteFragmentListener.deleteImage(position);
+        showActionDialog(position);
     }
+
+    private void showActionDialog(final int position) {
+        String choice[] = new String[]{getResources().getString(R.string.replace), getResources().getString(R.string.delete)};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setItems(choice, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case 0: //replace
+//                        fetchImageFromFileSystem();
+                        break;
+                    case 1: //delete
+                        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                        onRemoteFragmentListener.deleteImage(position);
+                        break;
+                }
+            }
+
+
+        });
+        builder.show();
+    }
+
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
