@@ -37,15 +37,15 @@ public class SlideshowActivity extends AppCompatActivity {
 
         db = new DatabaseHelper(this);
 
-        Intent intent = getIntent();
-        index = intent.getIntExtra(TAG_POSITION_ITEM, 0);
-        numberTable = intent.getIntExtra(TAG_NUMBER_TABLE, 0);
+        index = getIntent().getIntExtra(TAG_POSITION_ITEM, 0);
+        numberTable = getIntent().getIntExtra(TAG_NUMBER_TABLE, 0);
 
         images = db.getAllItems(numberTable);
 
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(index);
 
     }
 

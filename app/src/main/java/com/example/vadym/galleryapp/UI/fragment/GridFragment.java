@@ -65,7 +65,6 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
         rv.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rv.setAdapter(adapterRecycler);
 
-
         return v;
     }
 

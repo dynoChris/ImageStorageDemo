@@ -1,5 +1,6 @@
 package com.example.vadym.galleryapp.UI.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,12 +15,12 @@ import com.example.vadym.galleryapp.R;
 
 public class FullscreenImageFragment extends Fragment {
 
-    private String uri;
+    private String uriAsString;
 
-    public static FullscreenImageFragment newInstance(String uri) {
+    public static FullscreenImageFragment newInstance(String uriAsString) {
         FullscreenImageFragment fragment = new FullscreenImageFragment();
         Bundle args = new Bundle();
-        args.putString("uri", uri);
+        args.putString("uri", uriAsString);
         fragment.setArguments(args);
         return fragment;
     }
@@ -27,7 +28,7 @@ public class FullscreenImageFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.uri = getArguments().getString("uri");
+        this.uriAsString = getArguments().getString("uri");
     }
 
     @Nullable
@@ -37,6 +38,7 @@ public class FullscreenImageFragment extends Fragment {
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view_fullscreen);
 
+        Uri uri = Uri.parse(uriAsString);
         Glide.with(getActivity()).load(uri).into(imageView);
 
         return v;
