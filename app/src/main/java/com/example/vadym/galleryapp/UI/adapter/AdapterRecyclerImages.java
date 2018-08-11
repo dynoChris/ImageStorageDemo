@@ -24,9 +24,9 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
     private Context context;
     private int numberTable;
 
-//    public interface OnRecyclerListener {
-//        void onClickRecyclerItem(int position);
-//    }
+    public interface OnRecyclerListener {
+        void onClickRecyclerItem(int position);
+    }
 
     public AdapterRecyclerImages(List<ImageItem> images, Context context, int numberTable) {
         this.images = images;
@@ -64,15 +64,10 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    OnRecyclerListener listener = (OnRecyclerListener) context;
-//                    listener.onClickRecyclerItem(getAdapterPosition());
+                    OnRecyclerListener listener = (OnRecyclerListener) context;
+                    listener.onClickRecyclerItem(getAdapterPosition());
 
-//                    Intent intent = new Intent(context, SlideshowActivity.class);
-//                    Bundle extras = new Bundle();
-//                    extras.putInt(SlideshowActivity.TAG_POSITION_ITEM, getAdapterPosition());
-//                    extras.putInt(SlideshowActivity.TAG_NUMBER_TABLE, numberTable);
-//                    intent.putExtras(extras);
-//                    context.startActivity(intent);
+
                 }
             });
 

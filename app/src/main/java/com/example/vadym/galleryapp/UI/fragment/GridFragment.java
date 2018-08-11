@@ -1,6 +1,7 @@
 package com.example.vadym.galleryapp.UI.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.UI.MainActivity;
+import com.example.vadym.galleryapp.UI.SlideshowActivity;
 import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
 import com.example.vadym.galleryapp.database.DatabaseHelper;
 import com.example.vadym.galleryapp.database.model.ImageItem;
@@ -48,7 +50,6 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         numberTable = getArguments().getInt("numberFragment");
-
     }
 
     @Nullable
@@ -76,5 +77,15 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
         images.add(0, img);
 
         adapterRecycler.notifyDataSetChanged();
+    }
+
+    @Override
+    public void startSlideshow(int position) {
+        Intent intent = new Intent(getContext(), SlideshowActivity.class);
+        Bundle extras = new Bundle();
+        extras.putInt(SlideshowActivity.TAG_POSITION_ITEM, position);
+        extras.putInt(SlideshowActivity.TAG_NUMBER_TABLE, numberTable);
+        intent.putExtras(extras);
+        getContext().startActivity(intent);
     }
 }

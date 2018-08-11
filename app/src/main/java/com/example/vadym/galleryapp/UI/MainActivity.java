@@ -13,13 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
 import com.example.vadym.galleryapp.UI.fragment.GridFragment;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener {
 
     public static final int COUNT_GRID = 9;
 
@@ -30,6 +29,7 @@ public class MainActivity extends AppCompatActivity  {
 
     public interface OnRemoteFragmentListener {
         void addImage(String uri);
+        void startSlideshow(int position);
     }
 
     @Override
@@ -71,11 +71,11 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-//    @Override
-//    public void onClickRecyclerItem(int position) {
-////        int numberTable = pagerAdapter.getCurrentFragment().numberTable;
-////        System.out.println("devprin: " + position + ", " + numberTable);
-//    }
+    @Override
+    public void onClickRecyclerItem(int position) {
+        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+        onRemoteFragmentListener.startSlideshow(position);
+    }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
