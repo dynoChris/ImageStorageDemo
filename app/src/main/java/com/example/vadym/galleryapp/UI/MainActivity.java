@@ -13,13 +13,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.UI.fragment.GridFragmentListener;
+import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
+import com.example.vadym.galleryapp.UI.fragment.GridFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
-    private final int COUNT_GRID = 9;
+    public static final int COUNT_GRID = 9;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private MyPagerAdapter pagerAdapter;
 
     public interface OnRemoteFragmentListener {
-        void addImage(Uri uri);
+        void addImage(String uri);
     }
 
     @Override
@@ -47,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 fetchImageFromFileSystem();
-//                OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
-//                onRemoteFragmentListener.addImage();
             }
         });
     }
@@ -64,56 +64,48 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            Uri uri = data.getData();
+            Uri uriAsObject = data.getData();
+            String uri = uriAsObject.toString();
             OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
             onRemoteFragmentListener.addImage(uri);
         }
     }
 
-//    private Bitmap getPath(Uri uri) {
-//        String[] projection = { MediaStore.Images.Media.DATA };
-//        Cursor cursor = managedQuery(uri, projection, null, null, null);
-//        int column_index = cursor
-//                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-//        cursor.moveToFirst();
-//        String filePath = cursor.getString(column_index);
-//        cursor.close();
-//        // Convert file path into bitmap image using below line.
-//        Bitmap bitmap = BitmapFactory.decodeFile(filePath);
-//
-//        return bitmap;
+//    @Override
+//    public void onClickRecyclerItem(int position) {
+////        int numberTable = pagerAdapter.getCurrentFragment().numberTable;
+////        System.out.println("devprin: " + position + ", " + numberTable);
 //    }
-
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
-        private GridFragmentListener currentFragment;
+        private GridFragment currentFragment;
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
-        public GridFragmentListener getCurrentFragment() {
+        public GridFragment getCurrentFragment() {
             return this.currentFragment;
         }
 
         @Override
         public void setPrimaryItem(ViewGroup container, int position, Object object) {
             if (getCurrentFragment() != object) {
-                currentFragment = ((GridFragmentListener) object);
+                currentFragment = ((GridFragment) object);
             }
             super.setPrimaryItem(container, position, object);
         }
 
         @Override
         public Fragment getItem(int position) {
-            return GridFragmentListener.newInstance(position);
+            return GridFragment.newInstance(position);
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "#" + position;
+            return "#" + (position+1);
         }
 
         @Override

@@ -1,7 +1,6 @@
 package com.example.vadym.galleryapp.UI.fragment;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,30 +11,44 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.vadym.galleryapp.model.ImageItem;
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
 import com.example.vadym.galleryapp.UI.MainActivity;
+import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
+import com.example.vadym.galleryapp.database.DatabaseHelper;
+import com.example.vadym.galleryapp.database.model.ImageItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridFragmentListener extends Fragment implements MainActivity.OnRemoteFragmentListener {
-    private static final String PAGE_NUMBER = "page_number";
+public class GridFragment extends Fragment implements MainActivity.OnRemoteFragmentListener {
+    private int numberTable;
+
     private RecyclerView rv;
     private List<ImageItem> images = new ArrayList<>();
     private AdapterRecyclerImages adapterRecycler;
 
-    public static GridFragmentListener newInstance(int position) {
-        GridFragmentListener fragment = new GridFragmentListener();
+    private DatabaseHelper db;
 
+    public static GridFragment newInstance(int position) {
+        GridFragment fragment = new GridFragment();
+        Bundle args = new Bundle();
+        args.putInt("numberFragment", position);
+        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        adapterRecycler = new AdapterRecyclerImages(images, context);
+        adapterRecycler = new AdapterRecyclerImages(images, context, numberTable);
+        db = new DatabaseHelper(context);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        numberTable = getArguments().getInt("numberFragment");
+
     }
 
     @Nullable
@@ -43,17 +56,25 @@ public class GridFragmentListener extends Fragment implements MainActivity.OnRem
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_grid, container, false);
 
+        images.clear();
+
+        images.addAll(db.getAllItems(numberTable));
+
         rv = (RecyclerView) v.findViewById(R.id.recycler_view);
         rv.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rv.setAdapter(adapterRecycler);
+
 
         return v;
     }
 
     @Override
-    public void addImage(Uri uri) {
-        ImageItem img = new ImageItem(uri);
-        images.add(img);
+    public void addImage(String uri) {
+        long id = db.insertItem(numberTable, uri);
+
+        ImageItem img = db.getItem(numberTable, id);
+        images.add(0, img);
+
         adapterRecycler.notifyDataSetChanged();
     }
 }
