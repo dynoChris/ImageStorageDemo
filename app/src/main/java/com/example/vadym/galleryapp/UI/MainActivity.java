@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     public interface OnRemoteFragmentListener {
         void addImage(String uri);
         void startSlideshow(int position);
+        void deleteImage(int position);
     }
 
     @Override
@@ -75,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     public void onClickRecyclerItem(int position) {
         OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
         onRemoteFragmentListener.startSlideshow(position);
+    }
+
+    @Override
+    public void onLongClickRecyclerItem(int position) {
+        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+        onRemoteFragmentListener.deleteImage(position);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

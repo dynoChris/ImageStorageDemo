@@ -46,7 +46,6 @@ public class SlideshowActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.view_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(index);
-
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

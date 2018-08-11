@@ -74,10 +74,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         values.put(ImageItem.COLUMN_URI, uri);
-        long id = db.insert(ImageItem.TABLE_NAME + numberTable, null, values);
+        String tableName = ImageItem.TABLE_NAME + numberTable;
+        long id = db.insert(tableName, null, values);
 
         db.close();
         return id;
+    }
+
+    public void deleteItem(int numberTable, long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String tableName = ImageItem.TABLE_NAME + numberTable;
+        db.delete(tableName, ImageItem.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+
+        db.close();
     }
 
     @Override

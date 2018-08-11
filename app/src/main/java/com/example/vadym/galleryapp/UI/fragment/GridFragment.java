@@ -42,7 +42,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        adapterRecycler = new AdapterRecyclerImages(images, context, numberTable);
+        adapterRecycler = new AdapterRecyclerImages(images, context);
         db = new DatabaseHelper(context);
     }
 
@@ -76,6 +76,15 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
         images.add(0, img);
 
         adapterRecycler.notifyDataSetChanged();
+    }
+
+    @Override
+    public void deleteImage(int position) {
+        long id = images.get(position).getId();
+        db.deleteItem(numberTable, id);
+
+        images.remove(position);
+        adapterRecycler.notifyItemRemoved(position);
     }
 
     @Override

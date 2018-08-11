@@ -22,4 +22,12 @@ public class ImageItem {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

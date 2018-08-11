@@ -22,16 +22,15 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
 
     private List<ImageItem> images;
     private Context context;
-    private int numberTable;
 
     public interface OnRecyclerListener {
         void onClickRecyclerItem(int position);
+        void onLongClickRecyclerItem(int position);
     }
 
-    public AdapterRecyclerImages(List<ImageItem> images, Context context, int numberTable) {
+    public AdapterRecyclerImages(List<ImageItem> images, Context context) {
         this.images = images;
         this.context = context;
-        this.numberTable = numberTable;
     }
 
     @NonNull
@@ -66,8 +65,15 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
                 public void onClick(View v) {
                     OnRecyclerListener listener = (OnRecyclerListener) context;
                     listener.onClickRecyclerItem(getAdapterPosition());
+                }
+            });
 
-
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    OnRecyclerListener listener = (OnRecyclerListener) context;
+                    listener.onLongClickRecyclerItem(getAdapterPosition());
+                    return true;
                 }
             });
 
