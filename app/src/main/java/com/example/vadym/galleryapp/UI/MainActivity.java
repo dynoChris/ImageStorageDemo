@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     public static final int COUNT_GRID = 9;
 
+    private boolean needReplace = false;
+    private int position;
+
     private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -33,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         void addImage(String uri);
         void startSlideshow(int position);
         void deleteImage(int position);
+        void replaceImage(String uri, int position);
     }
 
     @Override
@@ -69,8 +73,14 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         if (resultCode == RESULT_OK) {
             Uri uriAsObject = data.getData();
             String uri = uriAsObject.toString();
-            OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
-            onRemoteFragmentListener.addImage(uri);
+            if (!needReplace) {
+                OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                onRemoteFragmentListener.addImage(uri);
+            } else {
+                OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                onRemoteFragmentListener.replaceImage(uri, this.position);
+                needReplace = false;
+            }
         }
     }
 
@@ -94,7 +104,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case 0: //replace
-//                        fetchImageFromFileSystem();
+                        needReplace = true;
+                        MainActivity.this.position = position;
+                        fetchImageFromFileSystem();
                         break;
                     case 1: //delete
                         OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
@@ -102,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
                         break;
                 }
             }
-
-
         });
         builder.show();
     }

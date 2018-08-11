@@ -90,6 +90,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void updateItem(int numberTable, long id, String uri) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(ImageItem.COLUMN_URI, uri);
+
+        String tableName = ImageItem.TABLE_NAME + numberTable;
+        db.update(tableName, values, ImageItem.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+
+        db.close();
+    }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 

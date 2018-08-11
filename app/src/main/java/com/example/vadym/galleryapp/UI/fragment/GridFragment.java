@@ -88,6 +88,15 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     }
 
     @Override
+    public void replaceImage(String uri, int position) {
+        long id = images.get(position).getId();
+        db.updateItem(numberTable, id, uri);
+
+        images.get(position).setUri(uri);
+        adapterRecycler.notifyItemChanged(position);
+    }
+
+    @Override
     public void startSlideshow(int position) {
         Intent intent = new Intent(getContext(), SlideshowActivity.class);
         Bundle extras = new Bundle();
