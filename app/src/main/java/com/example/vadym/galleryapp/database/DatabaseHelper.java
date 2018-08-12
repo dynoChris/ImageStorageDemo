@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.vadym.galleryapp.UI.MainActivity;
+import com.example.vadym.galleryapp.ui.MainActivity;
 import com.example.vadym.galleryapp.database.model.ImageItem;
 
 import java.util.ArrayList;

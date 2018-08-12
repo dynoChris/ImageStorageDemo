@@ -1,16 +1,14 @@
-package com.example.vadym.galleryapp.UI;
+package com.example.vadym.galleryapp.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.UI.fragment.FullscreenImageFragment;
+import com.example.vadym.galleryapp.ui.fragment.FullscreenImageFragment;
 import com.example.vadym.galleryapp.database.DatabaseHelper;
 import com.example.vadym.galleryapp.database.model.ImageItem;
 

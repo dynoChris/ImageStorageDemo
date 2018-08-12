@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.UI;
+package com.example.vadym.galleryapp.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -17,8 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.UI.adapter.AdapterRecyclerImages;
-import com.example.vadym.galleryapp.UI.fragment.GridFragment;
+import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
+import com.example.vadym.galleryapp.ui.fragment.GridFragment;
 
 public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener {
 
@@ -147,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "#" + (position+1);
+            return "" + (position+1);
         }
 
         @Override

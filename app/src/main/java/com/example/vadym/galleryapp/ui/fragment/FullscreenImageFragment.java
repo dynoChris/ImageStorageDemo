@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.UI.fragment;
+package com.example.vadym.galleryapp.ui.fragment;
 
 import android.net.Uri;
 import android.os.Bundle;

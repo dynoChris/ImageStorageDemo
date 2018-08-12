@@ -1,9 +1,7 @@
-package com.example.vadym.galleryapp.UI.adapter;
+package com.example.vadym.galleryapp.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,7 +11,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.UI.SlideshowActivity;
 import com.example.vadym.galleryapp.database.model.ImageItem;
 
 import java.util.List;
@@ -47,6 +44,12 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
         String uriAsString = images.get(position).getUri();
         Uri uri = Uri.parse(uriAsString);
         Glide.with(context).load(uri).into(holder.imageView);
+//        try {
+//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+//            Glide.with(context).load(bitmap).into(holder.imageView);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
