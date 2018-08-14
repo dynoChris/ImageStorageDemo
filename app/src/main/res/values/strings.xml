@@ -3,4 +3,18 @@
     <string name="action_settings">Settings</string>
     <string name="replace">Replace</string>
     <string name="delete">Delete</string>
+
+
+
+    <string name="title_tab_layout1">I</string>
+    <string name="title_tab_layout2">II</string>
+    <string name="title_tab_layout3">III</string>
+    <string name="title_tab_layout4">IV</string>
+    <string name="title_tab_layout5">V</string>
+    <string name="title_tab_layout6">VI</string>
+    <string name="title_tab_layout7">VII</string>
+    <string name="title_tab_layout8">VIII</string>
+    <string name="title_tab_layout9">IX</string>
+    <string name="title_tab_layout10">X</string>
+
 </resources>

@@ -22,7 +22,7 @@ import com.example.vadym.galleryapp.ui.fragment.GridFragment;
 
 public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener {
 
-    public static final int COUNT_GRID = 9;
+    public static final int COUNT_GRID = 9; //max 10
 
     private boolean needReplace = false;
     private int positionReplace;
@@ -34,8 +34,11 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     public interface OnRemoteFragmentListener {
         void addImage(String uri);
+
         void deleteImage(int position);
+
         void replaceImage(String uri, int position);
+
         void startSlideshow(int position);
     }
 
@@ -146,7 +149,29 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return "" + (position+1);
+            switch (position) {
+                case 0:
+                    return getResources().getString(R.string.title_tab_layout1);
+                case 1:
+                    return getResources().getString(R.string.title_tab_layout2);
+                case 2:
+                    return getResources().getString(R.string.title_tab_layout3);
+                case 3:
+                    return getResources().getString(R.string.title_tab_layout4);
+                case 4:
+                    return getResources().getString(R.string.title_tab_layout5);
+                case 5:
+                    return getResources().getString(R.string.title_tab_layout6);
+                case 6:
+                    return getResources().getString(R.string.title_tab_layout7);
+                case 7:
+                    return getResources().getString(R.string.title_tab_layout8);
+                case 8:
+                    return getResources().getString(R.string.title_tab_layout9);
+                case 9:
+                    return getResources().getString(R.string.title_tab_layout10);
+            }
+            return "";
         }
 
         @Override
