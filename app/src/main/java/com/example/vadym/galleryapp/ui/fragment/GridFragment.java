@@ -13,11 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
+import com.example.vadym.galleryapp.database.DatabaseHelper;
+import com.example.vadym.galleryapp.database.model.ImageItem;
 import com.example.vadym.galleryapp.ui.MainActivity;
 import com.example.vadym.galleryapp.ui.SlideshowActivity;
 import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
-import com.example.vadym.galleryapp.database.DatabaseHelper;
-import com.example.vadym.galleryapp.database.model.ImageItem;
 
 import java.util.ArrayList;
 import java.util.List;

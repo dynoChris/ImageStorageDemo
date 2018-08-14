@@ -8,9 +8,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.ui.fragment.FullscreenImageFragment;
 import com.example.vadym.galleryapp.database.DatabaseHelper;
 import com.example.vadym.galleryapp.database.model.ImageItem;
+import com.example.vadym.galleryapp.ui.fragment.FullscreenImageFragment;
 
 import java.util.List;
 

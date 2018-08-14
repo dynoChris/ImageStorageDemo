@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     public static final int COUNT_GRID = 9;
 
     private boolean needReplace = false;
-    private int position;
+    private int positionReplace;
 
     private Toolbar toolbar;
     private ViewPager viewPager;
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
                 onRemoteFragmentListener.addImage(uri);
             } else {
                 OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
-                onRemoteFragmentListener.replaceImage(uri, this.position);
+                onRemoteFragmentListener.replaceImage(uri, this.positionReplace);
                 needReplace = false;
             }
         }
@@ -106,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
                 switch (which) {
                     case 0: //replace
                         needReplace = true;
-                        MainActivity.this.position = position;
+                        MainActivity.this.positionReplace = position;
                         fetchImageFromFileSystem();
                         break;
                     case 1: //delete

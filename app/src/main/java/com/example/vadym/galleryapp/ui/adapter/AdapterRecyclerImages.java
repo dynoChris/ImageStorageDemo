@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.database.model.ImageItem;
-import com.example.vadym.galleryapp.util.Converter;
 
 import java.util.List;
 
