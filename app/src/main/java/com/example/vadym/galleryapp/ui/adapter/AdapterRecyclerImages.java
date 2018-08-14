@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.database.model.ImageItem;
+import com.example.vadym.galleryapp.util.Converter;
 
 import java.util.List;
 
@@ -43,13 +44,9 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         String uriAsString = images.get(position).getUri();
         Uri uri = Uri.parse(uriAsString);
+//        String path = Converter.uriToPath(context, uri);
         Glide.with(context).load(uri).into(holder.imageView);
-//        try {
-//            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-//            Glide.with(context).load(bitmap).into(holder.imageView);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+
     }
 
     @Override

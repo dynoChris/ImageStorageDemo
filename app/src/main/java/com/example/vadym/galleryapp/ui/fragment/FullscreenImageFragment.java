@@ -9,13 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
+import com.example.vadym.galleryapp.util.Converter;
 
 public class FullscreenImageFragment extends Fragment {
 
     private String uriAsString;
+    private Uri uri;
 
     public static FullscreenImageFragment newInstance(String uriAsString) {
         FullscreenImageFragment fragment = new FullscreenImageFragment();
@@ -38,9 +41,19 @@ public class FullscreenImageFragment extends Fragment {
 
         ImageView imageView = (ImageView) v.findViewById(R.id.image_view_fullscreen);
 
-        Uri uri = Uri.parse(uriAsString);
-        Glide.with(getActivity()).load(uri).into(imageView);
+        this.uri = Uri.parse(uriAsString);
 
+        Glide.with(getActivity()).load(uri).into(imageView);
+        String path = Converter.uriToPath(getContext(), uri);
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                String path = Converter.uriToPath(getContext(), uri);
+                String fileName = Converter.pathToNameFile(path);
+                Toast.makeText(getContext(), "" + fileName, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
         return v;
     }
 }

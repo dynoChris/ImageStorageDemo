@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     public interface OnRemoteFragmentListener {
         void addImage(String uri);
-        void startSlideshow(int position);
         void deleteImage(int position);
         void replaceImage(String uri, int position);
+        void startSlideshow(int position);
     }
 
     @Override
@@ -118,7 +118,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         });
         builder.show();
     }
-
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
