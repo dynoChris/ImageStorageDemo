@@ -49,8 +49,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 //        toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tabs);
+
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setAdapter(pagerAdapter);
@@ -77,10 +78,10 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             Uri uriAsObject = data.getData();
             String uri = uriAsObject.toString();
             if (!needReplace) {
-                OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
                 onRemoteFragmentListener.addImage(uri);
             } else {
-                OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
                 onRemoteFragmentListener.replaceImage(uri, this.positionReplace);
                 needReplace = false;
             }
@@ -89,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     @Override
     public void onClickRecyclerItem(int position) {
-        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+        OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
         onRemoteFragmentListener.startSlideshow(position);
     }
 
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
                         fetchImageFromFileSystem();
                         break;
                     case 1: //delete
-                        OnRemoteFragmentListener onRemoteFragmentListener = (OnRemoteFragmentListener) pagerAdapter.getCurrentFragment();
+                        OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
                         onRemoteFragmentListener.deleteImage(position);
                         break;
                 }
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
         private GridFragment currentFragment;
 
-        public MyPagerAdapter(FragmentManager fm) {
+        MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 
