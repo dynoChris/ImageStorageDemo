@@ -3,19 +3,22 @@ package com.example.vadym.galleryapp.ui;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -72,8 +75,10 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             }
         });
     }
+
     ///----------------------------
-    //RUNTIME PERMISSIONS----------
+    //RUNTIME PERMISSIONS LIBRARY--
+    ///----------------------------
     private void askPermission() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
@@ -104,6 +109,111 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     }
     ///----------------------------
     ///----------------------------
+
+    ///----------------------------
+    //NATIVE RUNTIME PERMISSIONS---
+    ///----------------------------
+
+//    private void askPermission() {
+//        if (hasPermissions()){
+//            fetchImageFromFileSystem();
+//        }
+//        else {
+//            rationaleOfNeedForPermission();
+//        }
+//    }
+//
+//    private boolean hasPermissions(){
+//        String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+//
+//        for (String perms : permissions){
+//            int res = checkCallingOrSelfPermission(perms);
+//            if (!(res == PackageManager.PERMISSION_GRANTED)){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+//
+//    public void rationaleOfNeedForPermission() {
+//        //if user recently clicked "deny"
+//        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//            final String message = "Storage permission is needed to show files count";
+//            Snackbar.make(MainActivity.this.findViewById(R.id.root_container), message, Snackbar.LENGTH_LONG)
+//                    .setAction("GRANT", new View.OnClickListener() {
+//                        @Override
+//                        public void onClick(View v) {
+//                            requestPerms();
+//                        }
+//                    })
+//                    .show();
+//        } else {
+//            requestPerms();
+//        }
+//    }
+//
+//    private void requestPerms(){
+//        String[] permissions = new String[]{Manifest.permission.READ_EXTERNAL_STORAGE};
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+//            requestPermissions(permissions, 123);
+//        }
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        boolean allowed = true;
+//
+//        switch (requestCode){
+//            case 123:
+//
+//                for (int res : grantResults){
+//                    allowed = allowed && (res == PackageManager.PERMISSION_GRANTED);
+//                }
+//
+//                break;
+//            default:
+//                allowed = false;
+//                break;
+//        }
+//
+//        if (allowed){
+//            fetchImageFromFileSystem();
+//        }
+//        else {
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                if (shouldShowRequestPermissionRationale(Manifest.permission.READ_EXTERNAL_STORAGE)){
+//                    Toast.makeText(this, "Storage Permissions denied.", Toast.LENGTH_SHORT).show();
+//
+//                } else { //if user clicked "never ask again"
+//                    showNoStoragePermissionSnackbar();
+//                }
+//            }
+//        }
+//    }
+//
+//    public void showNoStoragePermissionSnackbar() {
+//        Snackbar.make(MainActivity.this.findViewById(R.id.root_container), "Storage permission isn't granted" , Snackbar.LENGTH_LONG)
+//                .setAction("SETTINGS", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        openApplicationSettings();
+//
+//                        Toast.makeText(getApplicationContext(),
+//                                "Open Permissions and grant the Storage permission",
+//                                Toast.LENGTH_SHORT)
+//                                .show();
+//                    }
+//                })
+//                .show();
+//    }
+//
+//    public void openApplicationSettings() {
+//        Intent appSettingsIntent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+//                Uri.parse("package:" + getPackageName()));
+//        startActivityForResult(appSettingsIntent, 123);
+//    }
+
+
 
     private void fetchImageFromFileSystem() {
 
@@ -145,17 +255,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         }
     }
 
-    @Override
-    public void onClickRecyclerItem(int position) {
-        OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
-        onRemoteFragmentListener.startSlideshow(position);
-    }
-
-    @Override
-    public void onLongClickRecyclerItem(int position) {
-        showActionDialog(position);
-    }
-
     private void showActionDialog(final int position) {
         String choice[] = new String[]{getResources().getString(R.string.replace), getResources().getString(R.string.delete)};
 
@@ -178,6 +277,19 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         });
         builder.show();
     }
+
+    @Override
+    public void onClickRecyclerItem(int position) {
+        OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
+        onRemoteFragmentListener.startSlideshow(position);
+    }
+
+    @Override
+    public void onLongClickRecyclerItem(int position) {
+        showActionDialog(position);
+    }
+
+
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 

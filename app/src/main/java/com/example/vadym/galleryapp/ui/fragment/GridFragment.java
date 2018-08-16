@@ -61,7 +61,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
 
         images.addAll(db.getAllItems(numberTable));
 
-        rv = (RecyclerView) v.findViewById(R.id.recycler_view);
+        rv = v.findViewById(R.id.recycler_view);
         rv.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rv.setAdapter(adapterRecycler);
 
