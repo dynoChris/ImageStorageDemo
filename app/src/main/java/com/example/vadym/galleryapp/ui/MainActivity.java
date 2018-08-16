@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         });
     }
 
-    ///----------------------------
-    //RUNTIME PERMISSIONS LIBRARY--
-    ///----------------------------
+    ///-------------------------------
+    //EASY RUNTIME PERMISSIONS LIBRARY
+    ///-------------------------------
     private void askPermission() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
@@ -217,20 +217,20 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
 
     private void fetchImageFromFileSystem() {
 
-        if (Build.VERSION.SDK_INT > 19){
+        if (Build.VERSION.SDK_INT >= 23){
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
             intent.setType("image/*");
             startActivityForResult(intent, 0);
         } else {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(intent, 0);
+            Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, 0);
         }
 
-//        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//        startActivityForResult(i, 0);
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(intent, 0);
 
 //        Intent intent = new Intent();
 //        intent.setType("image/*");
