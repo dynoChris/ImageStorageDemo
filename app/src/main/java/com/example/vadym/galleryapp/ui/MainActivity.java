@@ -1,9 +1,12 @@
 package com.example.vadym.galleryapp.ui;
 
+import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -15,19 +18,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
 import com.example.vadym.galleryapp.ui.fragment.GridFragment;
 
-public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener {
+import java.util.List;
+
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
+
+public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener, EasyPermissions.PermissionCallbacks {
 
     public static final int COUNT_GRID = 9; //max 10
 
     private boolean needReplace = false;
     private int positionReplace;
 
-    private Toolbar toolbar;
+//    private Toolbar toolbar;
     private ViewPager viewPager;
     private TabLayout tabLayout;
     private MyPagerAdapter pagerAdapter;
@@ -59,16 +68,64 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fetchImageFromFileSystem();
+                askPermission();
             }
         });
     }
+    ///----------------------------
+    //RUNTIME PERMISSIONS----------
+    private void askPermission() {
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
+        if (EasyPermissions.hasPermissions(this, perms)) {
+            fetchImageFromFileSystem();
+        } else {
+            EasyPermissions.requestPermissions(this, "This lets GridMemoryPhoto store and access information like photos on your phone and its SD card.",
+                    123, perms);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+        fetchImageFromFileSystem();
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog.Builder(this).build().show();
+        }
+    }
+    ///----------------------------
+    ///----------------------------
 
     private void fetchImageFromFileSystem() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
+
+        if (Build.VERSION.SDK_INT > 19){
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.setType("image/*");
+            startActivityForResult(intent, 0);
+        } else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(intent, 0);
+        }
+
+//        Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(i, 0);
+
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 0);
     }
 
     @Override

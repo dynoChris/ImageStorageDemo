@@ -1,10 +1,8 @@
 <resources>
-    <string name="app_name">App</string>
+    <string name="app_name">GridMemoryPhoto</string>
     <string name="action_settings">Settings</string>
     <string name="replace">Replace</string>
     <string name="delete">Delete</string>
-
-
 
     <string name="title_tab_layout1">I</string>
     <string name="title_tab_layout2">II</string>
