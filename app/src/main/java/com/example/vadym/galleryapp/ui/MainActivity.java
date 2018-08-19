@@ -3,16 +3,12 @@ package com.example.vadym.galleryapp.ui;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -21,7 +17,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
@@ -111,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     ///----------------------------
 
     private void fetchImageFromFileSystem() {
-
         if (Build.VERSION.SDK_INT >= 23){
             Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -183,8 +177,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     public void onLongClickRecyclerItem(int position) {
         showActionDialog(position);
     }
-
-
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
 
