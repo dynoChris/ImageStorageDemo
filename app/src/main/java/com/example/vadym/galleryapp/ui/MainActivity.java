@@ -27,7 +27,7 @@ import java.util.List;
 import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnRecyclerListener, EasyPermissions.PermissionCallbacks {
+public class MainActivity extends AppCompatActivity implements AdapterRecyclerImages.OnLongClickRecyclerListener, EasyPermissions.PermissionCallbacks {
 
     public static final int COUNT_GRID = 9; //max 10
 
@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         void deleteImage(int position);
 
         void replaceImage(String uri, int position);
-
-        void startSlideshow(int position);
     }
 
     @Override
@@ -165,12 +163,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             }
         });
         builder.show();
-    }
-
-    @Override
-    public void onClickRecyclerItem(int position) {
-        OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
-        onRemoteFragmentListener.startSlideshow(position);
     }
 
     @Override

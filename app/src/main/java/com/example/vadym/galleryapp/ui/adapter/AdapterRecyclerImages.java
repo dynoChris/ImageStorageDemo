@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
 import com.example.vadym.galleryapp.database.model.ImageItem;
+import com.example.vadym.galleryapp.ui.fragment.GridFragment;
 
 import java.util.List;
 
@@ -19,15 +20,20 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
 
     private List<ImageItem> images;
     private Context context;
+    private GridFragment fragment;
 
-    public interface OnRecyclerListener {
+    public interface OnClickRecyclerListener {
         void onClickRecyclerItem(int position);
+    }
+
+    public interface OnLongClickRecyclerListener {
         void onLongClickRecyclerItem(int position);
     }
 
-    public AdapterRecyclerImages(List<ImageItem> images, Context context) {
+    public AdapterRecyclerImages(List<ImageItem> images, Context context, GridFragment fragment) {
         this.images = images;
         this.context = context;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -45,7 +51,6 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
         Uri uri = Uri.parse(uriAsString);
 //        String path = Converter.uriToPath(context, uri);
         Glide.with(context).load(uri).into(holder.imageView);
-
     }
 
     @Override
@@ -62,7 +67,7 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    OnRecyclerListener listener = (OnRecyclerListener) context;
+                    OnClickRecyclerListener listener = fragment;
                     listener.onClickRecyclerItem(getAdapterPosition());
                 }
             });
@@ -70,7 +75,7 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-                    OnRecyclerListener listener = (OnRecyclerListener) context;
+                    OnLongClickRecyclerListener listener = (OnLongClickRecyclerListener) context;
                     listener.onLongClickRecyclerItem(getAdapterPosition());
                     return true;
                 }

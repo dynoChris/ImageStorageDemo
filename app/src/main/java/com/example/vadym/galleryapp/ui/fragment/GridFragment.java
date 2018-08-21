@@ -22,7 +22,7 @@ import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridFragment extends Fragment implements MainActivity.OnRemoteFragmentListener {
+public class GridFragment extends Fragment implements MainActivity.OnRemoteFragmentListener, AdapterRecyclerImages.OnClickRecyclerListener {
     private int numberTable;
 
     private RecyclerView rv;
@@ -42,7 +42,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        adapterRecycler = new AdapterRecyclerImages(images, context);
+        adapterRecycler = new AdapterRecyclerImages(images, context, this);
         db = new DatabaseHelper(context);
     }
 
@@ -97,7 +97,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     }
 
     @Override
-    public void startSlideshow(int position) {
+    public void onClickRecyclerItem(int position) {
         Intent intent = new Intent(getContext(), SlideshowActivity.class);
         Bundle extras = new Bundle();
         extras.putInt(SlideshowActivity.TAG_POSITION_ITEM, position);
