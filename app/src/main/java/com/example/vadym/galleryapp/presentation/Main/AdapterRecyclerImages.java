@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.ui.adapter;
+package com.example.vadym.galleryapp.presentation.Main;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,8 +11,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.database.model.ImageItem;
-import com.example.vadym.galleryapp.ui.fragment.GridFragment;
+import com.example.vadym.galleryapp.data.model.ImageItem;
 
 import java.util.List;
 

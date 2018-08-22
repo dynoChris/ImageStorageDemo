@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.database;
+package com.example.vadym.galleryapp.data.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,8 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.vadym.galleryapp.ui.MainActivity;
-import com.example.vadym.galleryapp.database.model.ImageItem;
+import com.example.vadym.galleryapp.presentation.Main.MainActivity;
+import com.example.vadym.galleryapp.data.model.ImageItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +24,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (int i = 0; i < MainActivity.COUNT_GRID; i++) {
-            String tableName = ImageItem.TABLE_NAME + i;
-            db.execSQL("CREATE TABLE " + (ImageItem.TABLE_NAME + i) + "("
-                    + ImageItem.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
-                    + ImageItem.COLUMN_URI + " TEXT"
+            String tableName = DBTable.TABLE_NAME + i;
+            db.execSQL("CREATE TABLE " + (DBTable.TABLE_NAME + i) + "("
+                    + DBTable.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + DBTable.COLUMN_URI + " TEXT"
                     + ")");
         }
     }
 
     public ImageItem getItem(int numberTable, long id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String tableName = ImageItem.TABLE_NAME + numberTable;
-        Cursor cursor = db.query(tableName, new String[]{ImageItem.COLUMN_ID, ImageItem.COLUMN_URI}, ImageItem.COLUMN_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
+        String tableName = DBTable.TABLE_NAME + numberTable;
+        Cursor cursor = db.query(tableName, new String[]{DBTable.COLUMN_ID, DBTable.COLUMN_URI}, DBTable.COLUMN_ID + "=?", new String[]{String.valueOf(id)}, null, null, null);
         cursor.moveToFirst();
         ImageItem img = new ImageItem(
-                cursor.getInt(cursor.getColumnIndex(ImageItem.COLUMN_ID)),
-                cursor.getString(cursor.getColumnIndex(ImageItem.COLUMN_URI))
+                cursor.getInt(cursor.getColumnIndex(DBTable.COLUMN_ID)),
+                cursor.getString(cursor.getColumnIndex(DBTable.COLUMN_URI))
         );
         cursor.close();
         db.close();
@@ -50,14 +50,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         List<ImageItem> images = new ArrayList<>();
-        String tableName = ImageItem.TABLE_NAME + numberTable;
+        String tableName = DBTable.TABLE_NAME + numberTable;
         Cursor cursor = db.rawQuery("SELECT * FROM " + tableName +
-                " ORDER BY " + ImageItem.COLUMN_ID + " DESC", null);
+                " ORDER BY " + DBTable.COLUMN_ID + " DESC", null);
         if (cursor.moveToFirst()) {
             do {
                 ImageItem img = new ImageItem(
-                        cursor.getInt(cursor.getColumnIndex(ImageItem.COLUMN_ID)),
-                        cursor.getString(cursor.getColumnIndex(ImageItem.COLUMN_URI))
+                        cursor.getInt(cursor.getColumnIndex(DBTable.COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(DBTable.COLUMN_URI))
                 );
                 images.add(img);
             } while (cursor.moveToNext());
@@ -73,8 +73,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
 
-        values.put(ImageItem.COLUMN_URI, uri);
-        String tableName = ImageItem.TABLE_NAME + numberTable;
+        values.put(DBTable.COLUMN_URI, uri);
+        String tableName = DBTable.TABLE_NAME + numberTable;
         long id = db.insert(tableName, null, values);
 
         db.close();
@@ -84,8 +84,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void deleteItem(int numberTable, long id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String tableName = ImageItem.TABLE_NAME + numberTable;
-        db.delete(tableName, ImageItem.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        String tableName = DBTable.TABLE_NAME + numberTable;
+        db.delete(tableName, DBTable.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
 
         db.close();
     }
@@ -94,10 +94,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(ImageItem.COLUMN_URI, uri);
+        values.put(DBTable.COLUMN_URI, uri);
 
-        String tableName = ImageItem.TABLE_NAME + numberTable;
-        db.update(tableName, values, ImageItem.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
+        String tableName = DBTable.TABLE_NAME + numberTable;
+        db.update(tableName, values, DBTable.COLUMN_ID + "=?", new String[]{String.valueOf(id)});
 
         db.close();
     }

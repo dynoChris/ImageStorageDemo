@@ -1,11 +1,6 @@
-package com.example.vadym.galleryapp.database.model;
+package com.example.vadym.galleryapp.data.model;
 
 public class ImageItem {
-
-    public static final String TABLE_NAME = "table_images";
-
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_URI = "uri";
 
     private int id;
     private String uri;

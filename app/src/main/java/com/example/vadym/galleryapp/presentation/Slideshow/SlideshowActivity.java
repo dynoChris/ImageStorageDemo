@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.ui;
+package com.example.vadym.galleryapp.presentation.Slideshow;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,9 +10,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.database.DatabaseHelper;
-import com.example.vadym.galleryapp.database.model.ImageItem;
-import com.example.vadym.galleryapp.ui.fragment.FullscreenImageFragment;
+import com.example.vadym.galleryapp.data.db.DatabaseHelper;
+import com.example.vadym.galleryapp.data.model.ImageItem;
 
 import java.util.List;
 

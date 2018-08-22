@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.ui;
+package com.example.vadym.galleryapp.presentation.Main;
 
 import android.Manifest;
 import android.content.DialogInterface;
@@ -19,8 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
-import com.example.vadym.galleryapp.ui.fragment.GridFragment;
 
 import java.util.List;
 

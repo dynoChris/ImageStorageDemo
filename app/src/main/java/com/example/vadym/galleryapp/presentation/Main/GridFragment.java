@@ -1,4 +1,4 @@
-package com.example.vadym.galleryapp.ui.fragment;
+package com.example.vadym.galleryapp.presentation.Main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.database.DatabaseHelper;
-import com.example.vadym.galleryapp.database.model.ImageItem;
-import com.example.vadym.galleryapp.ui.MainActivity;
-import com.example.vadym.galleryapp.ui.SlideshowActivity;
-import com.example.vadym.galleryapp.ui.adapter.AdapterRecyclerImages;
+import com.example.vadym.galleryapp.data.db.DatabaseHelper;
+import com.example.vadym.galleryapp.data.model.ImageItem;
+import com.example.vadym.galleryapp.presentation.Slideshow.SlideshowActivity;
 
 import java.util.ArrayList;
 import java.util.List;
