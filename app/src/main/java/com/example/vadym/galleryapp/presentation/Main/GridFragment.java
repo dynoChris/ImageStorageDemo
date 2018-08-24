@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.data.db.DatabaseHelper;
+import com.example.vadym.galleryapp.data.db.DBHelper;
 import com.example.vadym.galleryapp.data.model.ImageItem;
 import com.example.vadym.galleryapp.presentation.Slideshow.SlideshowActivity;
 
@@ -27,7 +27,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     private List<ImageItem> images = new ArrayList<>();
     private AdapterRecyclerImages adapterRecycler;
 
-    private DatabaseHelper db;
+    private DBHelper db;
 
     public static GridFragment newInstance(int position) {
         GridFragment fragment = new GridFragment();
@@ -41,7 +41,7 @@ public class GridFragment extends Fragment implements MainActivity.OnRemoteFragm
     public void onAttach(Context context) {
         super.onAttach(context);
         adapterRecycler = new AdapterRecyclerImages(images, context, this);
-        db = new DatabaseHelper(context);
+        db = new DBHelper(context);
     }
 
     @Override

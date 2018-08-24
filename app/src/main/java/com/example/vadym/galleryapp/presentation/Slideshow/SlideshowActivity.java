@@ -10,7 +10,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.vadym.galleryapp.R;
-import com.example.vadym.galleryapp.data.db.DatabaseHelper;
+import com.example.vadym.galleryapp.data.db.DBHelper;
 import com.example.vadym.galleryapp.data.model.ImageItem;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class SlideshowActivity extends AppCompatActivity {
     private MyPagerAdapter pagerAdapter;
     private ViewPager viewPager;
 
-    private DatabaseHelper db;
+    private DBHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class SlideshowActivity extends AppCompatActivity {
         hideStatusBar();
         setContentView(R.layout.activity_slideshow);
 
-        db = new DatabaseHelper(this);
+        db = new DBHelper(this);
 
         index = getIntent().getIntExtra(TAG_POSITION_ITEM, 0);
         numberTable = getIntent().getIntExtra(TAG_NUMBER_TABLE, 0);

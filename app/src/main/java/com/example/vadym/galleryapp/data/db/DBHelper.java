@@ -12,12 +12,12 @@ import com.example.vadym.galleryapp.data.model.ImageItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "db1";
     public static final int DB_VERSION = 1;
 
-    public DatabaseHelper(Context context) {
+    public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
     }
 
