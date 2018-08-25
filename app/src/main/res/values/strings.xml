@@ -14,5 +14,6 @@
     <string name="title_tab_layout8">VIII</string>
     <string name="title_tab_layout9">IX</string>
     <string name="title_tab_layout10">X</string>
+    <string name="failed_extract_picture">Failed extract a picture</string>
 
 </resources>

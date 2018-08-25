@@ -17,6 +17,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.vadym.galleryapp.R;
 
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         void addImage(String uri);
 
         void deleteImage(int position);
-
+        
         void replaceImage(String uri, int position);
     }
 
@@ -128,16 +129,25 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             Uri uriAsObject = data.getData();
-            String uri = uriAsObject.toString();
-            if (!needReplace) {
-                OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
-                onRemoteFragmentListener.addImage(uri);
+            if (uriAsObject != null) {
+                String uri = uriAsObject.toString();
+                if (!needReplace) {
+                    OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
+                    onRemoteFragmentListener.addImage(uri);
+                } else {
+                    OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
+                    onRemoteFragmentListener.replaceImage(uri, this.positionReplace);
+                    needReplace = false;
+                }
             } else {
-                OnRemoteFragmentListener onRemoteFragmentListener = pagerAdapter.getCurrentFragment();
-                onRemoteFragmentListener.replaceImage(uri, this.positionReplace);
-                needReplace = false;
+                Toast.makeText(this, getResources().getString(R.string.failed_extract_picture), Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onLongClickRecyclerItem(int position) {
+        showActionDialog(position);
     }
 
     private void showActionDialog(final int position) {
@@ -161,11 +171,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             }
         });
         builder.show();
-    }
-
-    @Override
-    public void onLongClickRecyclerItem(int position) {
-        showActionDialog(position);
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

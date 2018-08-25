@@ -39,11 +39,11 @@ public class FullscreenImageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_fullscreen_image, container, false);
 
-        ImageView imageView = (ImageView) v.findViewById(R.id.image_view_fullscreen);
+        ImageView imageView = v.findViewById(R.id.image_view_fullscreen);
 
         this.uri = Uri.parse(uriAsString);
 
-        Glide.with(getActivity()).load(uri).into(imageView);
+        Glide.with(getContext()).load(uri).into(imageView);
         String path = Converter.uriToPath(getContext(), uri);
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override

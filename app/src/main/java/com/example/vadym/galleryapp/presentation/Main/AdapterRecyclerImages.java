@@ -29,7 +29,7 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
         void onLongClickRecyclerItem(int position);
     }
 
-    public AdapterRecyclerImages(List<ImageItem> images, Context context, GridFragment fragment) {
+    AdapterRecyclerImages(List<ImageItem> images, Context context, GridFragment fragment) {
         this.images = images;
         this.context = context;
         this.fragment = fragment;
@@ -57,10 +57,10 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
         return images.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imageView;
 
-        public MyViewHolder(View itemView) {
+        MyViewHolder(View itemView) {
             super(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +80,7 @@ public class AdapterRecyclerImages extends RecyclerView.Adapter<AdapterRecyclerI
                 }
             });
 
-            imageView = (ImageView) itemView.findViewById(R.id.image_view_thumbnail);
+            imageView = itemView.findViewById(R.id.image_view_thumbnail);
         }
     }
 }

@@ -43,7 +43,7 @@ public class SlideshowActivity extends AppCompatActivity {
         images = db.getAllItems(numberTable);
 
         pagerAdapter = new MyPagerAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
+        viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(index);
     }
