@@ -68,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         });
     }
 
-    ///-------------------------------
-    //EASY RUNTIME PERMISSIONS LIBRARY
-    ///-------------------------------
+
+    //region ===EASY RUNTIME PERMISSIONS LIBRARY ======
+    //=================================================
     private void askPermission() {
         String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
         if (EasyPermissions.hasPermissions(this, perms)) {
@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
             new AppSettingsDialog.Builder(this).build().show();
         }
     }
-    ///----------------------------
-    ///----------------------------
+    //=================================================
+    ///endregion ======================================
 
     private void fetchImageFromFileSystem() {
         if (Build.VERSION.SDK_INT >= 23){
