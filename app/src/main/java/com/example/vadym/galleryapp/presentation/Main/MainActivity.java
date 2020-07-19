@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
         });
     }
 
-
     //region ===EASY RUNTIME PERMISSIONS LIBRARY ======
     //=================================================
     private void askPermission() {
@@ -128,6 +127,8 @@ public class MainActivity extends AppCompatActivity implements AdapterRecyclerIm
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
+            int perms = Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
+            getContentResolver().takePersistableUriPermission(data.getData(), perms);
             Uri uriAsObject = data.getData();
             if (uriAsObject != null) {
                 String uri = uriAsObject.toString();
